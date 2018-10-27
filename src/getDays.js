@@ -4,4 +4,12 @@
     return days.getDate();
  }());
 
- console.log(daysCounter);
+var monthIndex=(function(){
+    var month = new Date;
+    return month.getMonth();
+}());
+
+var yearIndex=(function(){
+    var year = new Date;
+    return year.getFullYear();
+}());

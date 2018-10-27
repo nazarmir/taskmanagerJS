@@ -6,7 +6,14 @@
 
 .day {
     display: grid;
-    height: 50px;
+    height: 160px;
     width: 100%;
     border: 1px solid black;
+    cursor: pointer;
+}
+
+.day-number {
+    display: grid;
+    justify-content: end;
+    margin: 5px;
 }
