@@ -1,0 +1,12 @@
+.month {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 10px;
+}
+
+.day {
+    display: grid;
+    height: 50px;
+    width: 100%;
+    border: 1px solid black;
+}
