@@ -3,11 +3,14 @@ function DaysGeneration(daysCounter) {
     for (let i = 1; i <= daysCounter; i++) {
         var days = document.createElement('div');
         var dayNumber = document.createElement('span');
+        var taskTittle=document.createElement('span');
         days.className='day';
+        taskTittle.className='task-tittle';
         dayNumber.className = 'day-number';
         dayNumber.innerHTML = i;
         days.setAttribute('data-day-number', i);
         days.appendChild(dayNumber);
+        days.appendChild(taskTittle);
         month.appendChild(days);
     }
 }

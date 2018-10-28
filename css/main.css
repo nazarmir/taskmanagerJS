@@ -4,9 +4,9 @@
     grid-gap: 10px;
 }
 
-.day {
+.day{
     display: grid;
-    height: 160px;
+    height:145px;
     width: 100%;
     border: 1px solid black;
     cursor: pointer;
