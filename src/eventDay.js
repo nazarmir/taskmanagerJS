@@ -19,6 +19,7 @@
                 taskTittle[item].innerHTML=input.value;
                 input.value=""; 
                 input.blur();
+                day[item].removeChild(input);
             }
         })
     });
