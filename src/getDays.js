@@ -14,6 +14,16 @@ var yearIndex=(()=>{
     return year.getFullYear();
 })();
 
+var prevMonth=(()=>{
+    var prev = new Date();
+    return prev.getMonth() - 1;
+})();
+
+var nextMonth=(()=>{
+    var prev = new Date();
+    return prev.getMonth() + 1;
+})();
+
 /* var date = {
     daysCounter:(() => {
         var date=new Date();
