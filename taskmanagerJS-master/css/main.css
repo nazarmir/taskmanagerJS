@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+.month {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+    display: grid;
+    height: 145px;
+    width: 100%;
+    border: 1px solid gray;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+}
+
+.day:last-child {
+    border-right: 1px solid gray;
+}
+
+.day:nth-child(7n) {
+    border-right: 1px solid gray;
+}
+
+.day-number {
+    justify-content: end;
+    display: grid;
+    margin: 5px;
+}
+
+.month-tittle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    font-weight: 100 !important;
+}
+
+ul#monsun {
+    border: 1px solid blueviolet;
+    color: aliceblue;
+    width: 100%;
+    background-color: blueviolet;
+    text-decoration: none;
+    margin: 0;
+    /* Обнуляем значение отступов */
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 10px;
+    /* Значение полей */
+}
+
+ul#monsun li {
+    justify-content: center;
+    display: grid;
+    margin: 5px;
+}
+
+.taskModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.taskModalContent {
+    background-color: #f4f4f4;
+    margin: 20% auto;
+    padding: 20px;
+    width: 50%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#closeModalBtn {
+    padding: 0;
+    margin: 0;
+    color: blueviolet;
+    font-size: 20px;
+}
+
+#closeModalBtn:hover,
+#closeModalBtn:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.taskModal .open {
+    display: none;
+}
+
+.tooltip {
+    position: absolute;
+    width: 15%;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    border: 1px solid black;
+    transition-delay: 0.3s
+}
