@@ -20,7 +20,7 @@ prev.addEventListener('click',function(){
     var curMonth=document.getElementById('november');
     curMonth.innerHTML='';
     $(function(){
-        $.getScript('src/daysGeneration.js'); 
+        $.getScript('src/daysGeneration.js',modal.refresh); 
     })
 });
 
@@ -36,6 +36,6 @@ next.addEventListener('click',function(e){
     var curMonth=document.getElementById('november');
     curMonth.innerHTML='';
     $(function(){
-        $.getScript('src/daysGeneration.js'); 
+        $.getScript('src/daysGeneration.js',modal.refresh); 
     })
 })
