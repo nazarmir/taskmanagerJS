@@ -3,8 +3,7 @@ function setMonthTitle(monthIndex, yearIndex) {
     var h = document.createElement('h3');
     var before = document.getElementById('names-of-days');
     h.innerHTML = `${months[monthIndex]} ${yearIndex}`;
-    h.className = 'month-tittle';
+    h.id = 'month-tittle';
     document.body.insertBefore(h, before);
 }
-
 setMonthTitle(monthIndex, yearIndex);

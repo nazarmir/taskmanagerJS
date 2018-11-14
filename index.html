@@ -12,6 +12,10 @@
 </head>
 
 <body>
+    <div class="btn-group">
+        <span id="nextMonth">&gt;</span>
+        <span id="prevMonth">&lt;</span>
+    </div>
     <div id="names-of-days">
         <ul id="monsun">
             <li>Mon</li>
@@ -24,15 +28,19 @@
         </ul>
     </div>
 
-    <section class="month" id="november">
+
+    <section class="month" id="november" data-ele = burger>
         
     </section>
 
-    <script src="src/getDays.js"></script>
+
+    <script src="dist/bundle.js"></script>
+
+    <script src="src/prevNextEvents.js"></script>
     <script src="src/setMonthTittle.js"></script>
     <script src="src/daysGeneration.js"></script>
     <script src="src/createModal.js"></script>
-
+    <script src="src/createTooltip.js"></script>
 </body>
 
 </html>
