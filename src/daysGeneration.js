@@ -4,6 +4,7 @@ function DaysGeneration() {
     var firstDay = new Date(yearIndex,monthIndex,1);
     var arrayOfDaysNames = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
     var month = document.getElementById('november');
+    var curDay=new Date();
 
     for (let i = 1; i <= countOfDaysInCurrentMonth; i++) {
         var days = document.createElement('div');
@@ -29,6 +30,10 @@ function DaysGeneration() {
                 break;
             case 'вс':document.getElementById('1').style.gridColumnStart = '7';
                 break;
+        }
+
+        if(curDay.getDate()==i  && curDay.getMonth()+1 == monthIndex+1 ){
+            dayNumber.style.color='red';
         }
     }
 };

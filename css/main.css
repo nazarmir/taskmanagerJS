@@ -1,17 +1,85 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+
+body {
+    font-family: 'Roboto';
+}
+
+html {
+    background: #eeeeee
+}
+
+#names-of-days {
+    width: 80%;
+    margin-bottom: 20px
+}
+
+.remove {
+    float: right;
+    border-radius: 50%;
+    background: #ff8334;
+    width: 20px;
+    color: white;
+    text-align: center;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
 .month {
+    float: left;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    width: 80%;
+    margin-right: 10px;
+    grid-gap: 10px;
+}
+
+.left-info-block {
+    width: 17%;
+    height: 700px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    float: left;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 10px;
+    padding-right: 20px;
+    overflow-y: scroll;
+}
+
+.left-info-block p {
+    width: 100%;
+    border-radius: 20px;
+    background: rgb(255, 200, 80);
+    padding: 10px;
+    padding-right: 0;
+    
+}
+
+.left-info-block .todoToDo{
+    width: 100%;
+    border-radius: 20px;
+    background: rgb(80, 170, 255);
+    padding: 10px;
+    padding-right: 0;
+}
+
+.tittleInDay {
+    width: 100%;
+    border-radius: 20px;
+    font-size: 14px;
+    padding-right: 10px;
+    font-weight: 600;
 }
 
 .day {
     display: grid;
-    height: 145px;
+    height: 150px;
     width: 100%;
-    border-right: none;
-    border-top: none;
     cursor: pointer;
     justify-content: end;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.7)
 }
 
 .day-number {
@@ -23,25 +91,66 @@
     transition: 0.3s
 }
 
-.day:hover .day-number{
+.day .day-number{
     margin: 5px;
     height: 20px;
     width: 23px;
-    background: rgb(202, 66, 66);
-    color: #ffffff;
 }
 
-#month-tittle {
+#todo{
+    display:none;
+    margin-top: 10px;
+}
+
+/* .tittleInDay {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #58e639;
+} */
+
+#inputTask {
+    height: 20px;
+    width: 75%;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+    padding-left: 10px
+}
+
+#addTask {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    height: 20px;
+    padding: 10px;
+    padding-top: 4px;
+    padding-bottom: 19px;
+    cursor: pointer;
+
+}
+
+#month-tittle,#infoOfDay {
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
     font-weight: 100 !important;
+    font-weight: bold;
+}
+#month-tittle{
+    display: inline-block;
+    margin-top: 0px;
+    cursor: pointer;
+}
+
+#infoOfDay {
+    position: absolute;
+    top: 25px;
+    right: 25px;
 }
 
 ul#monsun {
-    border: 1px solid blueviolet;
-    color: aliceblue;
+    color: #979797;
     width: 100%;
-    background-color: blueviolet;
     text-decoration: none;
     margin: 0;
     padding: 0;
@@ -94,41 +203,232 @@ ul#monsun li {
     font-size: 20px;
 }
 
-#closeModalBtn:hover,
-#closeModalBtn:focus {
-    color: red;
-    text-decoration: none;
-    cursor: pointer;
-}
 
-.taskModal .open {
-    display: none;
-}
-
-.tooltip {
-    position: absolute;
-    width: 15%;
-    top: 0;
-    right: 0;
-    margin: 20px;
-    border: 1px solid black;
-    transition-delay: 0.3s
+.btn-group{
+    margin-right: 20%;
+    margin-top: 30px;
 }
 
 .btn-group span {
-    background-color: rgb(125, 50, 202);
-    border: 1px solid rgb(87, 0, 128);
-    color: white;
+    border: 1px solid #bbbbbb;
+    color: #bbbbbb;
     padding: 5px 20px; 
     cursor: pointer; 
     float: right; 
+    background: rgba(255, 255, 255, 0.7);
 }
 
 .btn-group span:not(:last-child) {
     border-left: none; 
 }
 
+#nextMonth {
+    border-radius: 0px 10px 0px 0px;
+}
+
+#prevMonth {
+    border-radius: 10px 0px 0px 0px;
+}
+
 #prevMonth:active,
 #nextMonth:active{
     box-shadow: 0 0 3px gray;
 }
+
+.listOfTask {
+    padding: 10px;
+    border-radius: 20px;
+    background: #ffe040;
+}
+
+/* @media all and (max-width: 991px) {
+    .month {
+        width: 100%;
+    }
+    .day {
+        height: 80px;
+    }
+    .left-info-block {
+        width: 100%;
+        height: 300px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    #names-of-days {
+        width: 100%;
+    }
+    #month-tittle {
+        margin-top: 10px;
+        margin-bottom: 60px;
+    }
+    #infoOfDay {
+        position: absolute;
+        top: 55px;
+        right: 10px;
+    }
+} */
+
+@media all and (max-width: 991px) {
+    .month {
+        width: 100%;
+    }
+    .day {
+        height: auto;
+    }
+    .left-info-block {
+        width: 100%;
+        height: 300px;
+        margin-top: 20px
+    }
+    #names-of-days {
+        width: 100%;
+    }
+    #month-tittle {
+        margin-top: 10px;
+        margin-bottom: 60px;
+    }
+    .btn-group {
+        margin-right: 0
+    }
+    #infoOfDay {
+        position: absolute;
+        top: 55px;
+        right: 10px;
+    }
+}
+
+
+@-webkit-keyframes bounceIn {
+    from,
+    20%,
+    40%,
+    60%,
+    80%,
+    to {
+      -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+  
+    0% {
+      opacity: 0;
+      -webkit-transform: scale3d(0.3, 0.3, 0.3);
+      transform: scale3d(0.3, 0.3, 0.3);
+    }
+  
+    20% {
+      -webkit-transform: scale3d(1.1, 1.1, 1.1);
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
+  
+    40% {
+      -webkit-transform: scale3d(0.9, 0.9, 0.9);
+      transform: scale3d(0.9, 0.9, 0.9);
+    }
+  
+    60% {
+      opacity: 1;
+      -webkit-transform: scale3d(1.03, 1.03, 1.03);
+      transform: scale3d(1.03, 1.03, 1.03);
+    }
+  
+    80% {
+      -webkit-transform: scale3d(0.97, 0.97, 0.97);
+      transform: scale3d(0.97, 0.97, 0.97);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  @keyframes bounceIn {
+    from,
+    20%,
+    40%,
+    60%,
+    80%,
+    to {
+      -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+  
+    0% {
+      opacity: 0;
+      -webkit-transform: scale3d(0.3, 0.3, 0.3);
+      transform: scale3d(0.3, 0.3, 0.3);
+    }
+  
+    20% {
+      -webkit-transform: scale3d(1.1, 1.1, 1.1);
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
+  
+    40% {
+      -webkit-transform: scale3d(0.9, 0.9, 0.9);
+      transform: scale3d(0.9, 0.9, 0.9);
+    }
+  
+    60% {
+      opacity: 1;
+      -webkit-transform: scale3d(1.03, 1.03, 1.03);
+      transform: scale3d(1.03, 1.03, 1.03);
+    }
+  
+    80% {
+      -webkit-transform: scale3d(0.97, 0.97, 0.97);
+      transform: scale3d(0.97, 0.97, 0.97);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  .bounceIn {
+    -webkit-animation-duration: 0.75s;
+    animation-duration: 0.75s;
+    -webkit-animation-name: bounceIn;
+    animation-name: bounceIn;
+  }
+
+  .colorOfDay{
+    background-color: rgb(255, 243, 202);
+  }
+  
+
+  @-webkit-keyframes bounceOutRight {
+    20% {
+      opacity: 1;
+      -webkit-transform: translate3d(-20px, 0, 0);
+      transform: translate3d(-20px, 0, 0);
+    }
+  
+    to {
+      opacity: 0;
+      -webkit-transform: translate3d(2000px, 0, 0);
+      transform: translate3d(2000px, 0, 0);
+    }
+  }
+  
+  @keyframes bounceOutRight {
+    20% {
+      opacity: 1;
+      -webkit-transform: translate3d(-20px, 0, 0);
+      transform: translate3d(-20px, 0, 0);
+    }
+  
+    to {
+      opacity: 0;
+      -webkit-transform: translate3d(2000px, 0, 0);
+      transform: translate3d(2000px, 0, 0);
+    }
+  }
+  
+  .bounceOutRight {
+    -webkit-animation-name: bounceOutRight;
+    animation-name: bounceOutRight;
+  }

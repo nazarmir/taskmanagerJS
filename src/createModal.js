@@ -1,80 +1,202 @@
-// \b(0?\d{1,2}|1\d{1,2}|2[0-5]{2}|24[0-9]{1})(\.(0?\d{1,2}|1\d{1,2}|2[0-5]{2}|24[0-9]{1})){3}\b
+var body=document.body,
+        day=document.getElementsByClassName('day'),
+        infoBlock=document.getElementById('infoBlock'),
+        tittleOfDay=document.createElement('span'),
+        buttonAdd=document.createElement('input'),
+        getBlockToDo=document.getElementById('todo'),
+        before=document.getElementById('names-of-days'),
+        inputTask=document.getElementById('inputTask'),
+        placeOfTasks = document.getElementById('todo'),
+        createdTasks=document.createElement('div'),
+        op=document.createElement('span');
+    
+    var options={
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    };
+    
+    tittleOfDay.id='infoOfDay';
+    createdTasks.id='listOfTask';
+    tittleOfDay.innerHTML='No Date Selected';
 
-class Modal{
-    constructor(){
-        var body=document.body;
-        this.taskModal=document.createElement('div');
-        this.taskModal.className='taskModal';
-        body.appendChild(this.taskModal);
+    placeOfTasks.appendChild(buttonAdd);
+    placeOfTasks.appendChild(createdTasks);
+    body.insertBefore(tittleOfDay,before);
 
-        var taskModalContent=document.createElement('div');
-        taskModalContent.className='taskModalContent';
-        this.taskModal.appendChild(taskModalContent);
+    buttonAdd.setAttribute('type','button');
+    buttonAdd.setAttribute('value','+');
+    buttonAdd.id='addTask';
+    
+    var listOsTasks=document.getElementById('listOfTask')
+    var dataInput=document.getElementById('addTask');
+    var currDay;
+    var innerTasks=[];
 
-        const closeModalBtn=document.createElement('span');
-        closeModalBtn.id="closeModalBtn";
-        closeModalBtn.innerHTML="&times";
-        taskModalContent.appendChild(closeModalBtn);
-        closeModalBtn.addEventListener('click',this.close.bind(this));
 
-        const taskTittle=document.createElement('span');
-        taskTittle.innerHTML='Enter your task';
-        taskModalContent.appendChild(taskTittle);
-
-        const inputModalTask=document.createElement('input');
-        inputModalTask.id="inputTask";
-        taskModalContent.appendChild(inputModalTask);
-        inputModalTask.addEventListener('keyup',this.enterData.bind(this));
-    }
-
-    open(){
-        this.taskModal.style.display='block';
-    }
-
-    close(){
-        this.taskModal.style.display='none';
-    }
-
-    enterData(e){
-        var input=document.getElementById('inputTask');
-        if(e.keyCode==13){
-            //let inputTittle=document.createElement('p');
-            //inputTittle.className='inputTittle';
-            //inputTittle.innerHTML=input.value;
-            alert(input.value)
-            //taskModalContent.appendChild(inputTittle);
-            input.value='';
-            input.blur();
-        }
-    }
-
-    checkModal(e){
-        if(e.target == this.taskModal){
-            this.taskModal.style.display='none';
-        }
-    }   
-
-    refresh(){
-        var day = document.getElementsByClassName('day');
-        var modall=document.getElementsByClassName('taskModal');
-
-        day = document.getElementsByClassName('day');
-        [].forEach.call(day,function(el){
+    function refresh(){
+        [].forEach.call(day,function(el,item){
             el.addEventListener('click', function (event) {
                 event.preventDefault();
-                modal.open();
-            });
-        });
+                tittleOfDay.innerHTML='';
+                inputTask.value='';
+                //listOsTasks.innerHTML='';
+                innerTasks.splice(0,innerTasks.length);
+                createdTasks.innerHTML='';
+                var date = new Date(yearIndex,monthIndex,item+1);
+                currDay=this;
+                
 
-        [].forEach.call(modall,function(el){
+                tittleOfDay.innerHTML=date.toLocaleString("ru", options);
+
+                getBlockToDo.style.display = 'block';
+                
+                for (let i = 0; i < localStorage.length; i++) {
+                    if (localStorage.key(i) == 0) {
+                        localStorage.setItem(tittleOfDay.innerHTML, '');
+                    }     
+                    if (localStorage.key(i) == tittleOfDay.innerHTML) {
+                        
+                        var arr=localStorage.getItem(tittleOfDay.innerHTML).split(',');
+                        for (let i = 0; i < arr.length; i++) { 
+                            var pLocal = document.createElement('p');
+                            var spanLocal = document.createElement('span');
+                            spanLocal.innerHTML = '-';
+                            spanLocal.className = 'remove';
+                            pLocal.className = 'todoToDo';
+                            pLocal.innerHTML = arr[i];
+                            listOsTasks.appendChild(pLocal);
+                            pLocal.appendChild(spanLocal);
+                            var tittleIntoDay=document.createElement('span');
+                            tittleIntoDay.className='tittleInDay';
+                            //tittleIntoDay.innerHTML=''; 
+                            tittleIntoDay.innerHTML=arr[i];
+                            currDay.appendChild(tittleIntoDay);
+                        }
+                        removeItem(minus);
+                    }          
+                }
+
+                var tiDay=document.getElementsByClassName('tittleInDay');
+
+                if(tiDay.length>=3){
+                    currDay.style.overflowY='scroll';
+                }
+
+                window.onbeforeunload = function() {
+                    localStorage.clear();
+                    return "Данные не сохранены. Точно перейти?";
+                };
+            });
+    
+        });
+    }
+    refresh();
+
+    function handleListener(){
+        inputTask.addEventListener('keyup',function(event){
+            event.preventDefault();
+            if(event.keyCode==13){
+                if (inputTask != null && inputTask.value.length == 0 ) {
+                    alert('Введите данные.');
+                    return false;
+                }
+                if (inputTask.value.length > 30 ) {
+                    alert('Длина ввода превышает допустимое значение.');
+                    return false;
+                }
+                
+                var tittleOfTask=document.createElement('p');
+                tittleOfTask.className='bounceIn';
+
+                var spanLocal = document.createElement('span');
+                spanLocal.innerHTML = '-';
+                spanLocal.className = 'remove';
+                tittleOfTask.innerHTML=inputTask.value;
+                tittleOfTask.appendChild(spanLocal);
+
+
+                //МИРИК СТИЛИЗУЙ ЭТОТ tittleIntoDay как и таски в правой колонке
+                
+
+
+
+                var today = new Date(yearIndex,monthIndex, currDay.id);
+                console.log(today.toLocaleString("ru", options));
+
+                var dday=new Date();
+
+                if(parseInt(tittleOfDay.innerHTML) > dday.getDate()){
+                    currDay.style.backgroundColor='rgba(38, 187, 45, 0.74)';
+                    localStorage.setItem(today,'rgba(38, 187, 45, 0.74)');
+                }else if(parseInt(tittleOfDay.innerHTML) == dday.getDate()){
+                    currDay.style.backgroundColor='orange';
+                }
+                else{
+                    currDay.style.backgroundColor='rgba(250, 99, 99, 0.856)';
+                }
+
+                innerTasks.push(inputTask.value);
+
+                playSound();
+                
+                
+                listOsTasks.appendChild(tittleOfTask);
+                removeItem(minus)
+                inputTask.value = '';
+            }  
+        });
+        dataInput.addEventListener('click',function(event){
+            event.preventDefault();
+            var keyOfTask=tittleOfDay.innerHTML;
+
+            var tittleIntoDay=document.createElement('span');
+            tittleIntoDay.className='tittleInDay';
+            tittleIntoDay.innerHTML=inputTask.value;
+
+            localStorage[keyOfTask]=innerTasks;
+            var arr=localStorage.getItem(tittleOfDay.innerHTML).split(',');
+            console.log(arr);
+            arr.concat(innerTasks);
+            localStorage[tittleOfDay.innerHTML] = arr;
+
+            currDay.appendChild(tittleIntoDay);
+        });
+    }
+    handleListener();
+
+    function playSound(){   
+        document.getElementById('sound').play();
+    }
+
+
+    var minus=document.getElementsByClassName('remove');
+
+    const hasClass = (el, test) => el.classList.contains(test);
+    
+    function removeItem(minus){
+        [].forEach.call(minus,function(el){
             el.addEventListener('click', function (event) {
-                event.preventDefault();
-                modal.checkModal(event);
+                event.target.parentNode.className='bounceOutRight';
+                if (hasClass(event.target, "remove")) { 
+            //сюда добавить проверку на спан в тасках и данные инпута с локали
+                    if(event.target.parentNode.classList.contains('bouceIn')){
+                        event.target.parentNode.classList.remove('bouceIn');
+                    }else{
+                        event.target.parentNode.classList.add('bounceOutRight');
+                    }
+                    event.target.parentNode.remove();
+                    console.log(event.target.parentNode);
+                }
             });
         });
     }
-}
+    
+    $(document).on('click', '.day', 
+        function () {
+            $('.day').removeClass('colorOfDay'); 
+            $(this).addClass('colorOfDay');
+    });
 
-var modal = new Modal();
-modal.refresh();
 
+    

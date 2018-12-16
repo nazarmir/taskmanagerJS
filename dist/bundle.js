@@ -92,132 +92,186 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _createModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _createModal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_createModal__WEBPACK_IMPORTED_MODULE_0__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-
-
-var Hello =
-/*#__PURE__*/
-function () {
-  function Hello(message) {
-    _classCallCheck(this, Hello);
-
-    this.message = message;
-  }
-
-  _createClass(Hello, [{
-    key: "showText",
-    value: function showText() {
-      console.log("".concat(this.message));
-    }
-  }]);
-
-  return Hello;
-}();
-
-var a = new Hello('sxsx');
-a.showText();
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var body = document.body,
+    day = document.getElementsByClassName('day'),
+    infoBlock = document.getElementById('infoBlock'),
+    tittleOfDay = document.createElement('span'),
+    buttonAdd = document.createElement('input'),
+    getBlockToDo = document.getElementById('todo'),
+    before = document.getElementById('names-of-days'),
+    inputTask = document.getElementById('inputTask'),
+    placeOfTasks = document.getElementById('todo'),
+    createdTasks = document.createElement('div'),
+    op = document.createElement('span');
+var options = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+};
+tittleOfDay.id = 'infoOfDay';
+createdTasks.id = 'listOfTask';
+tittleOfDay.innerHTML = 'No Date Selected';
+placeOfTasks.appendChild(buttonAdd);
+placeOfTasks.appendChild(createdTasks);
+body.insertBefore(tittleOfDay, before);
+buttonAdd.setAttribute('type', 'button');
+buttonAdd.setAttribute('value', '+');
+buttonAdd.id = 'addTask';
+var listOsTasks = document.getElementById('listOfTask');
+var dataInput = document.getElementById('addTask');
+var currDay;
+var innerTasks = [];
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function refresh() {
+  [].forEach.call(day, function (el, item) {
+    el.addEventListener('click', function (event) {
+      event.preventDefault();
+      tittleOfDay.innerHTML = '';
+      inputTask.value = ''; //listOsTasks.innerHTML='';
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+      innerTasks.splice(0, innerTasks.length);
+      createdTasks.innerHTML = '';
+      var date = new Date(yearIndex, monthIndex, item + 1);
+      currDay = this;
+      tittleOfDay.innerHTML = date.toLocaleString("ru", options);
+      getBlockToDo.style.display = 'block';
 
-// \b(0?\d{1,2}|1\d{1,2}|2[0-5]{2}|24[0-9]{1})(\.(0?\d{1,2}|1\d{1,2}|2[0-5]{2}|24[0-9]{1})){3}\b
-var Modal =
-/*#__PURE__*/
-function () {
-  function Modal() {
-    _classCallCheck(this, Modal);
+      for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i) == 0) {
+          localStorage.setItem(tittleOfDay.innerHTML, '');
+        }
 
-    var body = document.body;
-    this.taskModal = document.createElement('div');
-    this.taskModal.className = 'taskModal';
-    body.appendChild(this.taskModal);
-    var taskModalContent = document.createElement('div');
-    taskModalContent.className = 'taskModalContent';
-    this.taskModal.appendChild(taskModalContent);
-    var closeModalBtn = document.createElement('span');
-    closeModalBtn.id = "closeModalBtn";
-    closeModalBtn.innerHTML = "&times";
-    taskModalContent.appendChild(closeModalBtn);
-    closeModalBtn.addEventListener('click', this.close.bind(this));
-    var taskTittle = document.createElement('span');
-    taskTittle.innerHTML = 'Enter your task';
-    taskModalContent.appendChild(taskTittle);
-    var inputModalTask = document.createElement('input');
-    inputModalTask.id = "inputTask";
-    taskModalContent.appendChild(inputModalTask);
-    inputModalTask.addEventListener('keyup', this.enterData.bind(this));
-  }
+        if (localStorage.key(i) == tittleOfDay.innerHTML) {
+          var arr = localStorage.getItem(tittleOfDay.innerHTML).split(',');
+          console.log(arr);
 
-  _createClass(Modal, [{
-    key: "open",
-    value: function open() {
-      this.taskModal.style.display = 'block';
-    }
-  }, {
-    key: "close",
-    value: function close() {
-      this.taskModal.style.display = 'none';
-    }
-  }, {
-    key: "enterData",
-    value: function enterData(e) {
-      var input = document.getElementById('inputTask');
+          for (var _i = 0; _i < arr.length; _i++) {
+            var pLocal = document.createElement('p');
+            var spanLocal = document.createElement('span');
+            spanLocal.innerHTML = '-';
+            spanLocal.className = 'remove';
+            pLocal.className = 'todoToDo';
+            pLocal.innerHTML = arr[_i];
+            listOsTasks.appendChild(pLocal);
+            pLocal.appendChild(spanLocal);
+            var tittleIntoDay = document.createElement('span');
+            tittleIntoDay.className = 'tittleInDay';
+            tittleIntoDay.innerHTML = arr[_i];
+            currDay.appendChild(tittleIntoDay);
+          }
 
-      if (e.keyCode == 13) {
-        //let inputTittle=document.createElement('p');
-        //inputTittle.className='inputTittle';
-        //inputTittle.innerHTML=input.value;
-        alert(input.value); //taskModalContent.appendChild(inputTittle);
-
-        input.value = '';
-        input.blur();
+          removeItem(minus);
+        }
       }
-    }
-  }, {
-    key: "checkModal",
-    value: function checkModal(e) {
-      if (e.target == this.taskModal) {
-        this.taskModal.style.display = 'none';
+
+      window.onbeforeunload = function () {
+        localStorage.clear();
+        return "Данные не сохранены. Точно перейти?";
+      };
+    });
+  });
+}
+
+refresh();
+
+function handleListener() {
+  inputTask.addEventListener('keyup', function (event) {
+    event.preventDefault();
+
+    if (event.keyCode == 13) {
+      if (inputTask != null && inputTask.value.length == 0) {
+        alert('Введите данные.');
+        return false;
       }
-    }
-  }, {
-    key: "refresh",
-    value: function refresh() {
-      var day = document.getElementsByClassName('day');
-      var modall = document.getElementsByClassName('taskModal');
-      day = document.getElementsByClassName('day');
-      [].forEach.call(day, function (el) {
-        el.addEventListener('click', function (event) {
-          event.preventDefault();
-          modal.open();
-        });
-      });
-      [].forEach.call(modall, function (el) {
-        el.addEventListener('click', function (event) {
-          event.preventDefault();
-          modal.checkModal(event);
-        });
-      });
-    }
-  }]);
 
-  return Modal;
-}();
+      if (inputTask.value.length > 30) {
+        alert('Длина ввода превышает допустимое значение.');
+        return false;
+      }
 
-var modal = new Modal();
-modal.refresh();
+      var tittleOfTask = document.createElement('p');
+      tittleOfTask.className = 'bounceIn';
+      var spanLocal = document.createElement('span');
+      spanLocal.innerHTML = '-';
+      spanLocal.className = 'remove';
+      tittleOfTask.innerHTML = inputTask.value;
+      tittleOfTask.appendChild(spanLocal); //МИРИК СТИЛИЗУЙ ЭТОТ tittleIntoDay как и таски в правой колонке
+
+      var tittleIntoDay = document.createElement('span');
+      tittleIntoDay.className = 'tittleInDay';
+      tittleIntoDay.innerHTML = inputTask.value;
+      var today = new Date(yearIndex, monthIndex, currDay.id);
+      console.log(today.toLocaleString("ru", options));
+      var dday = new Date();
+
+      if (parseInt(tittleOfDay.innerHTML) > dday.getDate()) {
+        currDay.style.backgroundColor = 'rgba(0, 128, 0, 0.7)';
+      } else if (parseInt(tittleOfDay.innerHTML) == dday.getDate()) {
+        currDay.style.backgroundColor = 'rgb(255, 200, 80)';
+      } else {
+        currDay.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+      }
+
+      var tiDay = document.getElementsByClassName('tittleInDay');
+
+      if (tiDay.length >= 3) {
+        currDay.style.overflowY = 'scroll';
+      }
+
+      innerTasks.push(inputTask.value);
+      playSound();
+      currDay.appendChild(tittleIntoDay);
+      listOsTasks.appendChild(tittleOfTask);
+      removeItem(minus);
+      inputTask.value = '';
+    }
+  });
+  dataInput.addEventListener('click', function (event) {
+    event.preventDefault();
+    var keyOfTask = tittleOfDay.innerHTML; //ключ
+
+    localStorage[keyOfTask] = innerTasks; //window.location.reload();
+
+    var arr = localStorage.getItem(tittleOfDay.innerHTML).split(',');
+    console.log(arr);
+    arr.concat(innerTasks);
+    localStorage[tittleOfDay.innerHTML] = arr; //clearPromArr(arr);
+    //
+  });
+}
+
+handleListener();
+
+function playSound() {
+  document.getElementById('sound').play();
+}
+
+var minus = document.getElementsByClassName('remove');
+
+var hasClass = function hasClass(el, test) {
+  return el.classList.contains(test);
+};
+
+function removeItem(minus) {
+  [].forEach.call(minus, function (el) {
+    el.addEventListener('click', function (event) {
+      if (hasClass(event.target, "remove")) {
+        event.target.parentNode.remove();
+      }
+    });
+  });
+}
+
+$(document).on('click', '.day', function () {
+  $('.day').removeClass('colorOfDay');
+  $(this).addClass('colorOfDay');
+});
 
 /***/ })
 /******/ ]);

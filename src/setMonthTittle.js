@@ -5,5 +5,27 @@ function setMonthTitle(monthIndex, yearIndex) {
     h.innerHTML = `${months[monthIndex]} ${yearIndex}`;
     h.id = 'month-tittle';
     document.body.insertBefore(h, before);
+
+    h.addEventListener('mouseover',function(event){
+        event.preventDefault();
+        h.innerHTML='Cureent Month';
+    })
+
+    h.addEventListener('click',function(event){
+        event.preventDefault();
+        var curMonth=document.getElementById('november');
+        curMonth.innerHTML='';
+    
+        $(function(){
+            $.getScript('src/generateCurrMonth.js',refresh); 
+        });
+        h.innerHTML=`${months[monthIndex]} ${yearIndex}`;
+    })
+
+    h.addEventListener('mouseout',function(event){
+        h.innerHTML=`${months[monthIndex]} ${yearIndex}`;
+    })
+    
+
 }
 setMonthTitle(monthIndex, yearIndex);
