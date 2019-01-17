@@ -149,7 +149,6 @@ function refresh() {
 
         if (localStorage.key(i) == tittleOfDay.innerHTML) {
           var arr = localStorage.getItem(tittleOfDay.innerHTML).split(',');
-          console.log(arr);
 
           for (var _i = 0; _i < arr.length; _i++) {
             var pLocal = document.createElement('p');
@@ -161,13 +160,20 @@ function refresh() {
             listOsTasks.appendChild(pLocal);
             pLocal.appendChild(spanLocal);
             var tittleIntoDay = document.createElement('span');
-            tittleIntoDay.className = 'tittleInDay';
+            tittleIntoDay.className = 'tittleInDay'; //tittleIntoDay.innerHTML=''; 
+
             tittleIntoDay.innerHTML = arr[_i];
             currDay.appendChild(tittleIntoDay);
           }
 
           removeItem(minus);
         }
+      }
+
+      var tiDay = document.getElementsByClassName('tittleInDay');
+
+      if (tiDay.length >= 3) {
+        currDay.style.overflowY = 'scroll';
       }
 
       window.onbeforeunload = function () {
@@ -203,30 +209,21 @@ function handleListener() {
       tittleOfTask.innerHTML = inputTask.value;
       tittleOfTask.appendChild(spanLocal); //МИРИК СТИЛИЗУЙ ЭТОТ tittleIntoDay как и таски в правой колонке
 
-      var tittleIntoDay = document.createElement('span');
-      tittleIntoDay.className = 'tittleInDay';
-      tittleIntoDay.innerHTML = inputTask.value;
       var today = new Date(yearIndex, monthIndex, currDay.id);
       console.log(today.toLocaleString("ru", options));
       var dday = new Date();
 
       if (parseInt(tittleOfDay.innerHTML) > dday.getDate()) {
-        currDay.style.backgroundColor = 'rgba(0, 128, 0, 0.7)';
+        currDay.style.backgroundColor = 'rgba(38, 187, 45, 0.74)';
+        localStorage.setItem(today, 'rgba(38, 187, 45, 0.74)');
       } else if (parseInt(tittleOfDay.innerHTML) == dday.getDate()) {
-        currDay.style.backgroundColor = 'rgb(255, 200, 80)';
+        currDay.style.backgroundColor = 'orange';
       } else {
-        currDay.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
-      }
-
-      var tiDay = document.getElementsByClassName('tittleInDay');
-
-      if (tiDay.length >= 3) {
-        currDay.style.overflowY = 'scroll';
+        currDay.style.backgroundColor = 'rgba(250, 99, 99, 0.856)';
       }
 
       innerTasks.push(inputTask.value);
       playSound();
-      currDay.appendChild(tittleIntoDay);
       listOsTasks.appendChild(tittleOfTask);
       removeItem(minus);
       inputTask.value = '';
@@ -234,15 +231,16 @@ function handleListener() {
   });
   dataInput.addEventListener('click', function (event) {
     event.preventDefault();
-    var keyOfTask = tittleOfDay.innerHTML; //ключ
-
-    localStorage[keyOfTask] = innerTasks; //window.location.reload();
-
+    var keyOfTask = tittleOfDay.innerHTML;
+    var tittleIntoDay = document.createElement('span');
+    tittleIntoDay.className = 'tittleInDay';
+    tittleIntoDay.innerHTML = inputTask.value;
+    localStorage[keyOfTask] = innerTasks;
     var arr = localStorage.getItem(tittleOfDay.innerHTML).split(',');
     console.log(arr);
     arr.concat(innerTasks);
-    localStorage[tittleOfDay.innerHTML] = arr; //clearPromArr(arr);
-    //
+    localStorage[tittleOfDay.innerHTML] = arr;
+    currDay.appendChild(tittleIntoDay);
   });
 }
 
@@ -261,8 +259,18 @@ var hasClass = function hasClass(el, test) {
 function removeItem(minus) {
   [].forEach.call(minus, function (el) {
     el.addEventListener('click', function (event) {
+      event.target.parentNode.className = 'bounceOutRight';
+
       if (hasClass(event.target, "remove")) {
+        //сюда добавить проверку на спан в тасках и данные инпута с локали
+        if (event.target.parentNode.classList.contains('bouceIn')) {
+          event.target.parentNode.classList.remove('bouceIn');
+        } else {
+          event.target.parentNode.classList.add('bounceOutRight');
+        }
+
         event.target.parentNode.remove();
+        console.log(event.target.parentNode);
       }
     });
   });
