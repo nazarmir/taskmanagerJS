@@ -115,12 +115,6 @@ var body=document.body,
                 tittleOfTask.innerHTML=inputTask.value;
                 tittleOfTask.appendChild(spanLocal);
 
-
-                //МИРИК СТИЛИЗУЙ ЭТОТ tittleIntoDay как и таски в правой колонке
-                
-
-
-
                 var today = new Date(yearIndex,monthIndex, currDay.id);
                 console.log(today.toLocaleString("ru", options));
 
